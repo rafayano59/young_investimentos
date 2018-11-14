@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  titulo: MyString
+  nivel: 1
+  valor: 9.99
+  lucro-porcentagem: 9.99
+  lucro-valor: 9.99
+  dataretirada: 2018-11-14 12:35:21
+
+two:
+  titulo: MyString
+  nivel: 1
+  valor: 9.99
+  lucro-porcentagem: 9.99
+  lucro-valor: 9.99
+  dataretirada: 2018-11-14 12:35:21

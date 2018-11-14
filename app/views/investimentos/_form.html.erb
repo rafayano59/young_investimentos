@@ -1,0 +1,47 @@
+<%= form_for(investimento) do |f| %>
+  <% if investimento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(investimento.errors.count, "error") %> prohibited this investimento from being saved:</h2>
+
+      <ul>
+      <% investimento.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :titulo %>
+    <%= f.text_field :titulo %>
+  </div>
+
+  <div class="field">
+    <%= f.label :nivel %>
+    <%= f.number_field :nivel %>
+  </div>
+
+  <div class="field">
+    <%= f.label :valor %>
+    <%= f.text_field :valor %>
+  </div>
+
+  <div class="field">
+    <%= f.label :lucro-porcentagem %>
+    <%= f.text_field :lucro-porcentagem %>
+  </div>
+
+  <div class="field">
+    <%= f.label :lucro-valor %>
+    <%= f.text_field :lucro-valor %>
+  </div>
+
+  <div class="field">
+    <%= f.label :dataretirada %>
+    <%= f.datetime_select :dataretirada %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
