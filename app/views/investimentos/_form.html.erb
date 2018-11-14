@@ -16,30 +16,23 @@
     <%= f.text_field :titulo %>
   </div>
 
-  <div class="field">
-    <%= f.label :nivel %>
-    <%= f.number_field :nivel %>
-  </div>
+  <!--<div class="field">
+    <%#= f.label :nivel %>
+    <%#= f.number_field :nivel %>
+  </div>-->
 
   <div class="field">
     <%= f.label :valor %>
     <%= f.text_field :valor %>
   </div>
 
-  <div class="field">
-    <%= f.label :lucro-porcentagem %>
-    <%= f.text_field :lucro-porcentagem %>
-  </div>
+  <!-- read only field for lucro <input type="text" value="something" name="tb1" readonly />--> 
 
-  <div class="field">
-    <%= f.label :lucro-valor %>
-    <%= f.text_field :lucro-valor %>
-  </div>
 
-  <div class="field">
-    <%= f.label :dataretirada %>
-    <%= f.datetime_select :dataretirada %>
-  </div>
+  <!-- <div class="field">
+    <%#= f.label :dataretirada %>
+    <%#= f.datetime_select :dataretirada %>
+  </div> -->
 
   <div class="actions">
     <%= f.submit %>

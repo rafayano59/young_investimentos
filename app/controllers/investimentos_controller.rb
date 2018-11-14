@@ -1,74 +1,69 @@
 class InvestimentosController < ApplicationController
-  before_action :set_investimento, only: [:show, :edit, :update, :destroy]
-
-  # GET /investimentos
-  # GET /investimentos.json
+  before_action :set_investimento, only: [:edit, :update, :show, :destroy]
+  
   def index
     @investimentos = Investimento.all
   end
-
-  # GET /investimentos/1
-  # GET /investimentos/1.json
-  def show
-  end
-
-  # GET /investimentos/new
+  
   def new
     @investimento = Investimento.new
   end
-
-  # GET /investimentos/1/edit
-  def edit
-  end
-
-  # POST /investimentos
-  # POST /investimentos.json
+  
   def create
     @investimento = Investimento.new(investimento_params)
-
-    respond_to do |format|
-      if @investimento.save
-        format.html { redirect_to @investimento, notice: 'Investimento was successfully created.' }
-        format.json { render :show, status: :created, location: @investimento }
-      else
-        format.html { render :new }
-        format.json { render json: @investimento.errors, status: :unprocessable_entity }
-      end
+    if @investimento.valor < 500
+      @investimento.nivel = 1
+      @investimento.lucroporcentagem = 0.05
+      @investimento.lucrovalor = @investimento.valor * 0.05
+    elsif @investimento.valor >= 500 && @investimento.valor < 1000
+      @investimento.nivel = 2
+      @investimento.lucroporcentagem = 0.10
+      @investimento.lucrovalor = @investimento.valor * 0.10
+    elsif @investimento.valor >= 1000 && @investimento.valor <= 5000
+      @investimento.nivel = 3
+      @investimento.lucroporcentagem = 0.15
+      @investimento.lucrovalor = @investimento.valor * 0.15
+    end
+    
+    if @investimento.save
+      flash[:notice] = "Seu investimento foi recebido! Agradecemos a confiança."
+      redirect_to investimento_path(@investimento)
+    else
+      render 'new'
     end
   end
+  
+  def show
 
-  # PATCH/PUT /investimentos/1
-  # PATCH/PUT /investimentos/1.json
+  end
+  
+  def edit
+
+  end
+  
   def update
-    respond_to do |format|
-      if @investimento.update(investimento_params)
-        format.html { redirect_to @investimento, notice: 'Investimento was successfully updated.' }
-        format.json { render :show, status: :ok, location: @investimento }
-      else
-        format.html { render :edit }
-        format.json { render json: @investimento.errors, status: :unprocessable_entity }
-      end
+
+    if @investimento.update(investimento_params)
+      flash[:notice] = "Investimento atualizado"
+      redirect_to investimento_path(@investimento)
+    else
+      render 'edit'
     end
   end
-
-  # DELETE /investimentos/1
-  # DELETE /investimentos/1.json
+  
   def destroy
+    
     @investimento.destroy
-    respond_to do |format|
-      format.html { redirect_to investimentos_url, notice: 'Investimento was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:notice] = "A exclusão do investimento foi sucedida"
+    redirect_to investimentos_path
   end
-
+  
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_investimento
       @investimento = Investimento.find(params[:id])
     end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
     def investimento_params
-      params.require(:investimento).permit(:titulo, :nivel, :valor, :lucro-porcentagem, :lucro-valor, :dataretirada)
+      params.require(:investimento).permit(:titulo, :valor)
     end
+    
 end

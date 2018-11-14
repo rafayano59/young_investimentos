@@ -1,37 +1,39 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Investimentos</h1>
+<h1>Listando todos investimentos</h1>
+<hr>
 
 <table>
-  <thead>
     <tr>
-      <th>Titulo</th>
-      <th>Nivel</th>
-      <th>Valor</th>
-      <th>Lucro-porcentagem</th>
-      <th>Lucro-valor</th>
-      <th>Dataretirada</th>
-      <th colspan="3"></th>
+        <th>Titulo</th>
+        <th>Valor(R$)</th>
+        <th>Lucro(%)</th>
+        <th>Lucro(R$)</th>
+        <th>Recebimento</th>
+        <th>Retirada</th>
     </tr>
-  </thead>
-
-  <tbody>
+    
     <% @investimentos.each do |investimento| %>
-      <tr>
+    <tr>
         <td><%= investimento.titulo %></td>
-        <td><%= investimento.nivel %></td>
-        <td><%= investimento.valor %></td>
-        <td><%= investimento.lucro-porcentagem %></td>
-        <td><%= investimento.lucro-valor %></td>
-        <td><%= investimento.dataretirada %></td>
-        <td><%= link_to 'Show', investimento %></td>
-        <td><%= link_to 'Edit', edit_investimento_path(investimento) %></td>
-        <td><%= link_to 'Destroy', investimento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <td><%= number_to_currency(investimento.valor) %></td>
+        <td>
+          <% if investimento.nivel == 1 %>
+            5%
+          <% elsif investimento.nivel == 2 %>
+            10%
+          <% elsif investimento.nivel == 3 %>
+            15%
+          <% end %>
+        </td>
+        <td><%= number_to_currency(investimento.lucrovalor) %></td>
+        <td><%= investimento.created_at.to_date %></td>
+        <td><%= investimento.dataretirada.to_date %></td>
+        <td><%= link_to 'Editar', edit_investimento_path(investimento) %></td>
+        <td><%= link_to 'Mostrar', investimento_path(investimento) %></td>
+        <td><%= link_to 'Excluir', investimento_path(investimento), method: :delete, data: {confirm: "Tem certeza que deseja realizar a exclusão?"} %></td>
+    </tr>
     <% end %>
-  </tbody>
 </table>
-
 <br>
-
-<%= link_to 'New Investimento', new_investimento_path %>
+<%= link_to 'Novo investimento', new_investimento_path %>
